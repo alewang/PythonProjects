@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+	<script>
+		function calculatePi() {
+			var pi = 0;
+			var DECIMAL_LIMIT = 6;
+			var decimals = document.getElementById('inputField').value;
+			decimals = parseInt(decimals, 10);
+			if(isNaN(decimals) || decimals > DECIMAL_LIMIT) {
+				decimals = 3;
+			}
+			var ERROR_LIMIT = Math.pow(10, -decimals);
+			//Calculate no more than ITER_LIMIT terms in the infinite series;
+			var ITER_LIMIT = 50;
+
+			var piOld = pi;
+			pi = 3;
+			var error;
+			var denomIntStart = 2;
+			var sign = 1;
+			var iterCounter = 0;
+			do {
+				piOld = pi;
+
+				var denom = denomIntStart;
+				//alert("denomIntStart " + denomIntStart);
+				denom *= ++denomIntStart;
+				//alert("denomIntStart " + denomIntStart);
+				denom *= ++denomIntStart;
+				//alert("denomIntStart " + denomIntStart);
+				//alert("denom " + denom);
+				var term = 4 / denom * sign;
+				//alert("term " + term);
+				pi += term;
+
+				error = pi - piOld;
+				error = (error < 0) ? -error : error;
+				sign *= -1;
+				iterCounter++;
+				//alert("pi " + pi);
+			} while(error > ERROR_LIMIT && iterCounter < ITER_LIMIT);
+
+			document.getElementById('outputField').value = pi;
+		}
+	</script>
+
+	<input type="text" id="inputField" value="7" /><br />
+	<button type="button" value"Hello!" onclick="calculatePi();">Calculate pi</button><br />
+	<input type="text" id="outputField" />
+</body>
+</html>
