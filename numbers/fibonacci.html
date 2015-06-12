@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+	<script>
+		function fib(n) {
+			var term = 0;
+			var twoBehind = 0;
+			var oneBehind = 1;
+			if(n == 0) {
+				term = twoBehind;
+			}
+
+			if(n == 1) {
+				term = oneBehind;
+			}
+
+			var oldTerm;
+			for(var counter = 2; counter <= n; counter++) {
+				term = twoBehind + oneBehind;
+
+				twoBehind = oneBehind;
+				oneBehind = term;
+			}
+
+			return term;
+		}
+
+		function cleanInput() {
+			var defaultValue = 5;
+			var cleanedValue;
+
+			var element = document.getElementById("numberInput");
+			var numIn = 0;
+			if(element === null) {
+				numIn = defaultValue;
+			}
+			else {
+				numIn = 1 * element.value;
+				if(isNaN(numIn)) {
+					numIn = defaultValue;
+				}
+			}
+
+			if(numIn < 0) {
+				numIn = defaultValue;
+			}
+
+			cleanedValue = numIn;
+			return cleanedValue;
+		}
+
+		function showFibo() {
+			var cleanedInput = cleanInput();
+			var fibonacci = fib(cleanedInput);
+			document.getElementById('outputField').value = fibonacci;
+		}
+	</script>
+
+	Calculate the
+	<input type="text" id="numberInput" value="N" />th
+	Fibonnaci number. <input type="button" value="Go!" onclick="showFibo();" /><br />
+	<input type="text" id="outputField" value="Result will go here." disabled />
+</body>
+</html>
