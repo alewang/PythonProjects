@@ -17,7 +17,9 @@ except ValueError:
 
 print("The number of decimals of accuracy is set to: %d" % decimals);
 if decimals < 1:
-	print("Please enter a value larger than 1
+	print("Please enter a value larger than 1");
+	exit();
+
 errorLimit = 10 ** -decimals;
 print("The error limit is set to: %.15f" % errorLimit);
 pi = 3.0;
