@@ -1,9 +1,23 @@
 #!/usr/bin/env python
-import math
+import math;
+import sys;
+import string;
 
 DECIMAL_LIMIT = 10;
-decimals = 7;
+readIn = sys.stdin;
+print"Enter the number of decimals of accuracy to calculate pi: ",;
+lineIn = readIn.readline();
+lineIn = string.strip(lineIn);
+decimals = 0;
+try:
+	decimals = int(lineIn, base=10);
+except ValueError:
+	print("That is not a valid number. Good-bye");
+	exit();
 
+print("The number of decimals of accuracy is set to: %d" % decimals);
+if decimals < 1:
+	print("Please enter a value larger than 1
 errorLimit = 10 ** -decimals;
 print("The error limit is set to: %.15f" % errorLimit);
 pi = 3.0;
