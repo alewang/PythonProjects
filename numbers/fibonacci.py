@@ -6,20 +6,28 @@ def fib(nth):
     
     twoBehind = 0;
     oneBehind = 1;
-    term = twoBehind + oneBehind;
+    term = 1;
     
-    if(nth == 0) {
+    if nth == 0:
         return twoBehind;
-    }
     
-    if(nth == 0) {
+    if nth == 1:
         return oneBehind;
-    }
+    
     index = 2;
     while index <= nth:
-        oldTerm = term;
         term = oneBehind + twoBehind;
         twoBehind = oneBehind;
-        oneBehind = oldTerm;
-        index++;
+        oneBehind = term;
+        index += 1;
     return term;
+
+index = raw_input("Fibonacci index: ");
+numInput = int(index);
+listOfNums = [numInput];
+counter = 0;
+NUMS_TO_INCLUDE = 5;
+while counter < NUMS_TO_INCLUDE:
+    print fib(numInput + counter);
+    counter += 1;
+
