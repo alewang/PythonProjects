@@ -5,11 +5,8 @@ function Inventory() {
 	*/
 	this.productMap = {};
 	this.addProduct = addProduct;
-	this.printInventory = function() {
-		for(var name in this.productMap) {
-			alert(name);
-		}
-	}
+	this.printInventory = printInventory;
+	this.getInventoryValue = getInventoryValue;
 }
 
 function addProduct() {
@@ -23,24 +20,59 @@ function addProduct() {
 	}
 }
 
-function Product(name) {
+function printInventory() {
+	for(var name in this.productMap) {
+		var product = this.productMap[name];
+		console.log(name + ' ' + product.price);
+	}
+}
+
+function getInventoryValue() {
+	var sum = 0.0;
+	for(var name in this.productMap) {
+		var product = this.productMap[name];
+		sum += product.price;
+	}
+	return sum;
+}
+
+function Product(name, price) {
+	if(name === undefined) {
+		name = "";
+	}
+
+	if(price === undefined) {
+		price = 0.0;
+	}
+	else {
+		price = parseFloat(price);
+		if(isNaN(price)) {
+			price = 0.0;
+		}
+	}
+
 	this.name = name;
+	this.price = price;
 }
 
 function main() {
 	var store1 = new Inventory();
 	var store2 = new Inventory();
 
-	var p1 = new Product("toothbrush");
-	var p2 = new Product("toothpaste");
+	var p1 = new Product("toothbrush", 52.55);
+	var p2 = new Product("toothpaste", 51.40);
+
+	//store1 has more products than store2
 	store1.addProduct(p1);
+	store1.addProduct(p2);
+
 	store2.addProduct(p2);
 
-	alert("Store1's inventory coming up");
+	console.log("Store1's inventory:");
 	store1.printInventory();
-	alert("Store1 complete");
+	console.log("Store1's value: " + store1.getInventoryValue());
 
-	alert("Store2's inventory coming up");
+	console.log("Store2's inventory:");
 	store2.printInventory();
-	alert("Store2 complete");
+	console.log("Store2's value: " + store2.getInventoryValue());
 }
