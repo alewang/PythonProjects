@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+	<script>
+		function displayE() {
+			var input = getCleanInput("decimalPlaces");
+			var valueOfE = calculateE(input);
+			outputE("result", valueOfE);
+		}
+
+		/*
+		@param idOfElement the value of the "id" attribute of the HTML
+			element to read the number of decimal places we should calculate
+			e up to
+		*/
+		function getCleanInput(idOfElement) {
+			//Function argument validation
+			var defaultValue = 5;
+			var cleanedInput = 0;
+			var elemValue = null;
+
+			if(idOfElement === undefined) {
+				cleanedInput = defaultValue;
+			}
+			else {
+				elemValue = document.getElementById(idOfElement);
+			}
+
+			//Check if the input can be parsed:
+			if(elemValue === null) {
+				cleanedInput = defaultValue;
+			}
+			else {
+				cleanedInput = 1 * elemValue.value;
+			}
+
+			if(isNaN(cleanedInput)) {
+				cleanedInput = defaultValue;
+			}
+
+			return cleanedInput;
+		}
+
+		/*
+		@param idOfElement the value of the "id" attribute of the HTML
+			element to display the calculated value of e.
+		*/
+		function outputE(idOfElement, result) {
+			//Don't do anything if the variables are not all defined
+			if(idOfElement === undefined || result === undefined) {
+				return;
+			}
+
+			var element = document.getElementById(idOfElement);
+			if(element === null) {
+				return;
+			}
+			//Past this line, element is guaranteed to not be
+			//null
+			element.value = result;
+		}
+
+		function calculateE(decimalPlaces) {
+			/*
+			We'll use the well-known Maclaurin series to approximate
+			e:
+
+			e^x = 1 + x + x^2 / 2! + x^3 / 3! + ...
+			e^1 = e = 1 + 1 + 1 / 2! + 1 / 3! + ...
+
+			The nice thing is that a nice expression bounding the
+			error is known. Let's set the error term to be:
+			
+			error = 3 / (n+1)!
+			*/
+			var ERR_LIMIT = Math.pow(10, -decimalPlaces);
+
+			var index = 0;
+			var factorial = 1;
+			var error = 3;
+			var e = 0;
+
+			var ITER_LIMIT = 15;
+			for(var counter = 0; counter < ITER_LIMIT && ERR_LIMIT < error; counter++) {
+				e = e + 1 / factorial;
+
+				index++;
+				factorial = factorial * index;
+				error = 3 / factorial;
+			}
+
+			return e;
+		}
+	</script>
+
+	Number of decimal places: <input type="text" id="decimalPlaces" /><br />
+	<input type="button" value="Calculate" onclick="displayE();" /><br />
+	<input type="text" id="result" value="Result of e will be here" disabled />
+</body>
+</html>

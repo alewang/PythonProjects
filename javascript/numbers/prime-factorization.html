@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script src="prime-factors.js"></script>
+</head>
+<body>
+	<script>
+		function buttonClicked() {
+			var input = document.getElementById("numberIn").value;
+			if(input === undefined || input === null) {
+				alert("Enter a positive integer");
+				return;
+			}
+
+			var cleanedInput = parseInt(input, 10);
+			if(isNaN(cleanedInput)) {
+				alert("Enter a positive integer");
+				return;
+			}
+
+			if(cleanedInput < 1) {
+				alert("Enter an integer greater than 1");
+				return;
+			}
+
+			var factorList = findFactors(cleanedInput);
+			displayFactors(factorList);
+		}
+
+		function displayFactors(factorList) {
+			var element = document.getElementById("factors");
+			var dispString = "";
+
+			var isFirstFactor = true;
+			for(var index = 0; index < factorList.length; index++) {
+				if(!isFirstFactor) {
+					dispString += ", ";
+				}
+				dispString += factorList[index];
+				isFirstFactor = false;
+			}
+			element.innerHTML = dispString;
+		}
+	</script>
+	<input type="text" id="numberIn" />
+	<input type="button" value="Find prime factors!" onclick="buttonClicked();" /><br />
+	The prime factors are: <span id="factors"></span>
+</body>
+</html>
