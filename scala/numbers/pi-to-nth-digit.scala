@@ -1,3 +1,5 @@
+#!/usr/bin/env scala
+
 def calc(index: Int): Double = {
 	val denom_mid: Long = 2 * index + 1;
 	val denom_small: Long = denom_mid - 1;
