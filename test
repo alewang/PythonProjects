@@ -3,3 +3,4 @@ test 2
 test - should set the PR to failure
 the last test did not trigger commit status
 final test - are we updating commit statuses now?
+nearing completion - need to require master branch status check before allowing
